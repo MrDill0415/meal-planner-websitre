@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  min-height: 100vh;       /* full viewport height */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;  /* stack header + main vertically */
+  align-items: center;     /* center horizontally */
+  gap: 2rem;
+}
+
+header {
+  text-align: center;
+}
+
+#monthSelector {
+  margin-top: 0.5rem;
+}
+
+main {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px; /* prevent stretching too wide */
+  flex-shrink: 0;
+}
+
+/* Left Sidebar */
+#sidebar {
+  width: 250px;
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffff;
+  flex-shrink: 0;
+}
+
+#sidebar h2 {
+  color: #00ffff;
+  margin-bottom: 10px;
+}
+
+#upcomingEvents div {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #222;
+  border-radius: 5px;
+}
+
+/* Calendar */
+#calendarWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#daysOfWeek {
+  display: grid;
+  grid-template-columns: repeat(7, 100px);
+  margin-bottom: 5px;
+}
+
+#daysOfWeek div {
+  text-align: center;
+  font-weight: bold;
+  color: #00ffff;
+}
+
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 100px);
+  grid-auto-rows: 100px;
+  gap: 5px;
+}
+
+.day {
+  background-color: #222;
+  border: 2px solid #555;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px;
+  transition: 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.day:hover {
+  border-color: #00ffff;
+  box-shadow: 0 0 10px #00ffff;
+}
+
+.day span {
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+/* Meal/Workout Boxes */
+.entry-box {
+  padding: 4px 6px;
+  border-radius: 6px;
+  margin: 2px 0;
+  font-size: 0.75rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  width: calc(100% - 4px);
+  box-sizing: border-box;
+}
+
+.entry-box.expanded {
+  white-space: normal;
+}
+
+.meal-box {
+  background-color: #ff00ff;
+  color: white;
+}
+
+.workout-box {
+  background-color: #00ff00;
+  color: black;
+}
+
+/* Right Sidebar */
+#rightSidebar {
+  width: 250px;
+  background-color: #111;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #00ffff;
+  flex-shrink: 0;
+  color: white;
+}
+
+#rightSidebar h2 {
+  color: #00ffff;
+  margin-bottom: 10px;
+}
+
+#quoteBox {
+  background-color: #222;
+  border-radius: 6px;
+  padding: 10px;
+  font-style: italic;
+  margin-bottom: 1rem;
+  min-height: 60px;
+}
+
+#notesBox {
+  width: 100%;
+  height: 100px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 0.5rem;
+}
+
+#saveNotes {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #00ffff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#saveNotes:hover {
+  background-color: #00cccc;
+}
+
+/* Entry Form */
+#entryForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #111;
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  z-index: 1000;
+  box-shadow: 0 0 15px #00ffff;
+}
+
+#entryForm.hidden {
+  display: none;
+}
+
+textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  height: 60px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #00ffff;
+  color: black;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #00cccc;
+}
+
+/* Highlight fade */
+.day.highlight {
+  background-color: #444 !important;
+  border-color: #00ffff !important;
+  transition: background-color 2s, border-color 2s;
+}
+
+/* Responsive */
+@media screen and (max-width: 800px) {
+  main {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #daysOfWeek, #calendar {
+    grid-template-columns: repeat(7, 40px);
+    grid-auto-rows: 40px;
+  }
+
+  .day {
+    font-size: 0.7rem;
+  }
+
+  #sidebar, #rightSidebar {
+    width: 100%;
+  }
+}

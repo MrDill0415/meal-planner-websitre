@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Raleway', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #00ffff;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #usersContainer {
+      background-color: #111;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px #00ffff;
+      max-width: 800px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .user-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      margin: 6px 0;
+      background-color: #222;
+      border-radius: 8px;
+    }
+
+    .user-row:nth-child(even) {
+      background-color: #1a1a1a;
+    }
+
+    .user-label {
+      font-weight: bold;
+      color: #00ffff;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ffff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+    }
+
+    @media screen and (max-width: 600px) {
+      .user-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Admin Panel - All Users</h1>
+  <div id="usersContainer"></div>
+  <button id="backBtn">Logout / Back to Login</button>
+
+  <script>
+    // --- Check Admin Login ---
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (!loggedInUser || loggedInUser.username !== 'Admin' || loggedInUser.password !== 'Admin123') {
+      alert("Access denied. Redirecting to login page.");
+      window.location.href = 'login.html';
+    }
+
+    const usersContainer = document.getElementById('usersContainer');
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Filter out Admin from user list to prevent creating another Admin
+    const normalUsers = users.filter(u => u.username !== "Admin");
+
+    if(normalUsers.length === 0){
+      usersContainer.textContent = "No users found.";
+    } else {
+      normalUsers.forEach(user => {
+        const row = document.createElement('div');
+        row.classList.add('user-row');
+
+        const usernameDiv = document.createElement('div');
+        usernameDiv.innerHTML = `<span class="user-label">Username:</span> ${user.username}`;
+
+        const passwordDiv = document.createElement('div');
+        passwordDiv.innerHTML = `<span class="user-label">Password:</span> ${user.password}`;
+
+        row.appendChild(usernameDiv);
+        row.appendChild(passwordDiv);
+        usersContainer.appendChild(row);
+      });
+    }
+
+    // --- Logout / Back to Login ---
+    document.getElementById('backBtn').addEventListener('click', () => {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = 'login.html';
+    });
+  </script>
+
+</body>
+</html>
