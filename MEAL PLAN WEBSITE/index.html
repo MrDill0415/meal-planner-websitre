@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal & Workout Planner</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+  <h1>Meal & Workout Planner</h1>
+  <div id="monthSelector">
+    <label for="month">Select Month:</label>
+    <select id="month"></select>
+  </div>
+  <button id="logoutBtn" style="margin-top:10px; padding:5px 10px; border-radius:6px; border:none; background-color:#00ffff; color:black; font-weight:bold; cursor:pointer;">Logout</button>
+</header>
+
+    <main>
+      <div id="sidebar">
+        <h2>Upcoming Events</h2>
+        <div id="upcomingEvents"></div>
+      </div>
+
+      <div id="calendarWrapper">
+        <div id="daysOfWeek">
+          <div>Sun</div>
+          <div>Mon</div>
+          <div>Tue</div>
+          <div>Wed</div>
+          <div>Thu</div>
+          <div>Fri</div>
+          <div>Sat</div>
+        </div>
+        <div id="calendar"></div>
+      </div>
+
+      <div id="rightSidebar">
+        <h2>Motivational Quote</h2>
+        <div id="quoteBox"></div>
+
+        <h2>Notes</h2>
+        <textarea id="notesBox" placeholder="Write your notes here..."></textarea>
+        <button id="saveNotes">Save Notes</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Entry form popup stays outside container -->
+  <div id="entryForm" class="hidden">
+    <h2>Add Entry</h2>
+    <p id="selectedDate"></p>
+    <textarea id="mealInput" placeholder="Meal plan..."></textarea>
+    <textarea id="workoutInput" placeholder="Workout plan..."></textarea>
+    <button id="saveEntry">Save Entry</button>
+    <button id="closeForm">Cancel</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+<body>
+  <script>
+    // Check login BEFORE anything else
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (!loggedInUser) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <div class="container">
+    <!-- header, main, etc. -->
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
